@@ -22,6 +22,19 @@ async function sauceDemoLoginTest(){
         let menuButton = await driver.findElement(By.xpath("//button[@id='react-burger-menu-btn']"));
         assert.strictEqual(await menuButton.isDisplayed(), true, "Menu Button is not visible");
 
+        //Find Product Sauce Labs Backpack
+        let title = await driver.findElement(By.xpath("//div[@class='inventory_container']")).getText();
+        assert.strictEqual(title.includes('Sauce Labs Backpack'), true, "Title does not include'Sauce Labs Backpack'");
+
+        //Click Button Add Produk To Cart
+        await driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-backpack']")).click();
+
+        //Validate the Product Has Been Added To Cart
+        await driver.findElement(By.xpath("//div[@id='shopping_cart_container']/a[1]")).click();
+        let titleProduct = await driver.findElement(By.xpath("//div[@class='inventory_item_name']")).getText();
+        assert.strictEqual(titleProduct.includes('Sauce Labs Backpack'), true, "Title does not include'Sauce Labs Backpack'");
+
+
     } finally {
         await driver.quit();
     }
